@@ -4,11 +4,15 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -22,6 +26,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
     private String phoneNumber;
-    private List<Contact> contacts = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<UserContact> contacts = new ArrayList<>();
+    @OneToOne
     private MailBox mailBox;
 }
